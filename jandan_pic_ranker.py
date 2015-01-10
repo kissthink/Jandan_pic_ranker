@@ -56,7 +56,7 @@ for page in range(startPage,endPage):
 			continue
 ##吐槽一句，jandan的代码规范做得有点差啊……
 
-	pageData = pageData.replace("</span></small>","</small>")
+	pageData = pageData.replace("</span></small>","</small>") #无故出现的/span会导致bs4出现灵异现象
 
 #数据处理单元
 	soup = BeautifulSoup(pageData)
@@ -67,16 +67,15 @@ for page in range(startPage,endPage):
 		# print pic.previous_element
 		src = []
 		getin = False;
-		# try:
-		# 	content = pic.select(".text").p.text
-		# 	oo = pic.select("[id|=cos_support]")[0].text
-		# 	xx = pic.select("[id|=cos_unsupport]")[0].text
-		# except:
-		# 	print "过滤错误"
-		# 	continue
-		content = pic.find("div",class_="text").p.text
-		oo = pic.select("[id|=cos_support]")[0].text
-		xx = pic.select("[id|=cos_unsupport]")[0].text
+		try:
+			content = pic.find("div",class_="text").p.text
+			oo = pic.select("[id|=cos_support]")[0].text
+			xx = pic.select("[id|=cos_unsupport]")[0].text
+		except:
+			print "过滤错误"
+			print pic
+			continue
+		
 
 
 
@@ -208,8 +207,8 @@ var duoshuoQuery = {short_name:"yinzwuliaotu"};
 document = documentHead
 
 print "总计上榜：",len(Ranking)
-listNum = int(raw_input("请输入输出数量："))
-picPerPage = int(raw_input("请输入每页图片数量（推荐20）："))
+listNum = int(raw_input("请输入输出数量：\n"))
+picPerPage = int(raw_input("请输入每页图片数量（推荐20）：\n"))
 resultfilename = str(raw_input("请输入输出文件名称（无后缀名）："))
 
 num = 0		#控制循环数量
